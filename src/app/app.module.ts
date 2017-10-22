@@ -1,3 +1,6 @@
+import { KatasPageModule } from './../pages/katas/katas.module';
+import { LoginPageModule } from './../pages/login/login.module';
+import { LoginPage } from './../pages/login/login';
 import { UserProfilePage } from '../pages/user-profile/user-profile';
 import { CoreModule } from './../core/core.module';
 import { environment } from '../environments/environment';
@@ -29,7 +32,9 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
-    CoreModule
+    CoreModule,
+    LoginPageModule,
+    KatasPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

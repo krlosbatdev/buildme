@@ -1,3 +1,6 @@
+import { KatasPage } from '../pages/katas/katas';
+import { AuthService } from './../core/auth.service';
+import { LoginPage } from './../pages/login/login';
 import { UserProfilePage } from './../pages/user-profile/user-profile';
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
@@ -15,13 +18,16 @@ import { ListPage } from '../pages/list/list';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any;
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
-    this.initializeApp();
-
+  constructor(
+      public platform: Platform,
+      public statusBar: StatusBar,
+      public splashScreen: SplashScreen,
+      private authService: AuthService) {
+    
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
@@ -29,6 +35,18 @@ export class MyApp {
       { title: 'Profile', component: UserProfilePage }
     ];
 
+    this.authService.user.subscribe(user => {
+      if(user){
+        this.rootPage = HomePage;
+        if(user.roles && user.roles.some(x=> x==="admin"))
+          this.pages.push({title: 'Katas', component: KatasPage});
+
+      }else{
+        this.rootPage = LoginPage;
+      }
+    });
+    this.initializeApp();
+    
   }
 
   initializeApp() {
