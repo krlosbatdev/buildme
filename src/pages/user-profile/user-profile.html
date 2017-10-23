@@ -38,7 +38,7 @@
       <h3>Howdy, {{user.displayName}}</h3>
       <img [src]="user.photoURL" alt="">
       <p>UID: {{ user.uid }}</p>
-      <p>Favorite Color: {{ user.favoriteColor }}</p>
+      <p>Roles: {{user.roles | json}}</p>
       
       <button (click)="auth.logout()">
         <i class="fa fa-google">logout</i>

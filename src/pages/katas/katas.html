@@ -7,6 +7,9 @@
 <ion-header>
 
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>katas</ion-title>
   </ion-navbar>
 
@@ -14,5 +17,8 @@
 
 
 <ion-content padding>
+    <div *ngFor="let training of trainings | async">
+        <h3>{{training | json}}</h3>
+      </div>
 
 </ion-content>

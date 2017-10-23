@@ -10,15 +10,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
 
 
-interface Training{
-  day: string,
-  level: number,
-  workout: Exercise[]
-}
-interface Exercise{
-  description: string;
-  tips?: string
-}
 
 @Component({
   selector: 'page-home',
