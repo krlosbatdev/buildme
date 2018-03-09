@@ -7,18 +7,13 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
-
-
-
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any;
+  rootPage: string;
 
   pages: Array<{title: string, component: any}>;
 
@@ -30,19 +25,21 @@ export class MyApp {
     
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage },
-      { title: 'Profile', component: UserProfilePage }
+      { title: 'Profile', component: 'UserProfilePage' }
     ];
 
     this.authService.user.subscribe(user => {
       if(user){
-        this.rootPage = HomePage;
-        if(user.roles && user.roles.some(x=> x==="admin"))
-          this.pages.push({title: 'Katas', component: KatasPage});
+        this.rootPage = 'UserProfilePage';
+        if(user.roles && user.roles.some(x=> x==="admin")){
+
+          this.pages.push({title: 'Katas', component: 'KatasPage'});
+        }else{
+          this.pages.splice(this.pages.indexOf({title: 'Katas', component: 'KatasPage'}));
+        }
 
       }else{
-        this.rootPage = LoginPage;
+        this.rootPage = 'LoginPage';
       }
     });
     this.initializeApp();

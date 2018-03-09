@@ -14,31 +14,31 @@ import 'rxjs/add/operator/map';
 export class AuthService {
     user: Observable<User>;
 
-    constructor( private afAuth: AngularFireAuth,
-                private afs: AngularFirestore) {
-    // get auth data, tehn get firestore user document // null
-    this.user = this.afAuth.authState
-                    .switchMap(user => {
-                        if(user){
-                            return this.afs.doc<User>(`users/${user.uid}`).valueChanges()
-                        } else{
-                            return Observable.of(null)
-                        }
-                    })
+    constructor(private afAuth: AngularFireAuth,
+        private afs: AngularFirestore) {
+        // get auth data, tehn get firestore user document // null
+        this.user = this.afAuth.authState
+            .switchMap(user => {
+                if (user) {
+                    return this.afs.doc<User>(`users/${user.uid}`).valueChanges()
+                } else {
+                    return Observable.of(null)
+                }
+            })
     }
-    
-    googleLogin(){
+
+    googleLogin() {
         const provider = new firebase.auth.GoogleAuthProvider();
         return this.oAuthLogin(provider);
     }
 
     oAuthLogin(provider: any): any {
         return this.afAuth.auth.signInWithPopup(provider)
-            .then((credential)=>{
+            .then((credential) => {
                 this.updateUserData(credential.user)
             })
     }
-    
+
     updateUserData(user) {
         // Sets user data to firestore on login
         const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
@@ -49,19 +49,19 @@ export class AuthService {
             displayName: user.displayName,
             photoURL: user.photoURL
         }
-        userRef.ref.get().then(user=>{
+        userRef.ref.get().then(user => {
             if (!user.exists) {
                 data.experience = 0;
                 data.level = 0;
-                data.roles =["user"];
+                data.roles = ["user"];
+                return userRef.set(data);
             }
-        return userRef.set(data);
-        
-        })
+            return userRef.update(data);
+        });
 
     }
 
-    logout(){
+    logout() {
         this.afAuth.auth.signOut();
     }
 

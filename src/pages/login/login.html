@@ -8,10 +8,14 @@
 
 
 <ion-content padding>
-  <h3>Howdy, GUEST</h3>
-  <p>Login to get started...</p>
-
-  <button (click)="auth.googleLogin()">
-    <i class="fa fa-google">Connect Google</i>
-  </button>
+  <ion-avatar class="logo">
+    <img src="assets/images/logo.webp" alt="">
+  </ion-avatar>
+  <h3>Build Me!</h3>
+  <ion-avatar>
+    <i class="fa fa-google fa-2x" (click)="auth.googleLogin()"></i>
+  </ion-avatar>
+  <ion-avatar>
+    <i class="fa fa-facebook fa-2x" (click)="auth.googleLogin()"></i>
+  </ion-avatar>
 </ion-content>
