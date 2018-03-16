@@ -23,7 +23,7 @@ import "rxjs/add/operator/map";
 })
 export class KatasPage {
   trainingsCollection: AngularFirestoreCollection<Training>;
-  trainings: Observable<Training[]>;
+  trainings:any[];//Observable<Training[]>;
 
   constructor(
     public navCtrl: NavController,
@@ -33,13 +33,19 @@ export class KatasPage {
 
   ionViewDidLoad() {
     this.trainingsCollection = this.afs.collection('trainings');
-    this.trainings = this.trainingsCollection.valueChanges();
+    this.trainingsCollection.valueChanges()
+    .subscribe(
+      (data)=> this.trainings = data,
+      (error)=> {
+        console.log(error)
+      }
+    );
   }
 
   ionViewCanEnter() {
     //    return !!this.afAuth.auth.currentUser;
 
-    return this.authService.user
+    return this.authService.user$
       .take(1)
       .map(user => !!user)
       .subscribe(loggedIn => {

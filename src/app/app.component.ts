@@ -15,33 +15,24 @@ export class MyApp {
 
   rootPage: string;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any, role:string}>;
 
   constructor(
       public platform: Platform,
       public statusBar: StatusBar,
       public splashScreen: SplashScreen,
-      private authService: AuthService) {
+      public authService: AuthService) {
     
-    // used for an example of ngFor and navigation
+    this.authService.user$.subscribe(user => this.rootPage = !user ? 'LoginPage' : 'UserProfilePage');
+        
+    // used for an example of ngFor and navigation     
+      //&& user.roles.user
     this.pages = [
-      { title: 'Profile', component: 'UserProfilePage' }
+      { title: 'Profile', component: 'UserProfilePage',role:'user'},
+      {title: 'Katas', component: 'KatasPage',role:'user'}
     ];
 
-    this.authService.user.subscribe(user => {
-      if(user){
-        this.rootPage = 'UserProfilePage';
-        if(user.roles && user.roles.some(x=> x==="admin")){
 
-          this.pages.push({title: 'Katas', component: 'KatasPage'});
-        }else{
-          this.pages.splice(this.pages.indexOf({title: 'Katas', component: 'KatasPage'}));
-        }
-
-      }else{
-        this.rootPage = 'LoginPage';
-      }
-    });
     this.initializeApp();
     
   }
