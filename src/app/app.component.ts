@@ -1,3 +1,4 @@
+import { LEVEL_LIST, Level } from './../models/level.interface';
 import { KatasPage } from '../pages/katas/katas';
 import { AuthService } from './../core/auth.service';
 import { LoginPage } from './../pages/login/login';
@@ -6,6 +7,9 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { AngularFireStorage } from 'angularfire2/storage';
+import * as _ from 'lodash';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -13,23 +17,38 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
+  levelList = LEVEL_LIST;
+
   rootPage: string;
 
   pages: Array<{title: string, component: any, role:string}>;
+  levelIconlUrl;
 
   constructor(
       public platform: Platform,
       public statusBar: StatusBar,
       public splashScreen: SplashScreen,
-      public authService: AuthService) {
+      public authService: AuthService,
+      private afStorage: AngularFireStorage ) {
     
-    this.authService.user$.subscribe(user => this.rootPage = !user ? 'LoginPage' : 'UserProfilePage');
+    this.authService.user$
+      .subscribe(user => {
+        this.rootPage = !user ? 'LoginPage' : 'UserProfilePage';
+        if(!user) return;
+        let level:Level = _.find(this.levelList,['id', user.level]);
+        this.levelIconlUrl = this.afStorage.ref(level.icon).getDownloadURL();
+        
+      });
+
+    
         
     // used for an example of ngFor and navigation     
       //&& user.roles.user
     this.pages = [
       { title: 'Profile', component: 'UserProfilePage',role:'user'},
-      {title: 'Katas', component: 'KatasPage',role:'user'}
+      {title: 'Katas', component: 'KatasPage',role:'user'},
+      {title: 'Add Katas', component: 'AddKataPage',role:'admin'},
+      
     ];
 
 

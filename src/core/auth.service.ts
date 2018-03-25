@@ -14,8 +14,7 @@ import 'rxjs/add/operator/map';
 export class AuthService {
     user$: Observable<User>;
 
-    constructor(private afAuth: AngularFireAuth,
-        private afs: AngularFirestore) {
+    constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore) {
         // get auth data, then get firestore user document // null
         this.user$ = this.afAuth.authState
             .switchMap(user => {
@@ -69,6 +68,14 @@ export class AuthService {
 
     //// Abilities and Roles Auth /////
     //// Assign roles to ability method//
+    canRead(user: User): boolean {
+        const allowed = ['admin', 'user']
+        return this.checkAuthorization(user, allowed);
+    }
+    canEdit(user: User): boolean {
+        const allowed = ['admin', 'user']
+        return this.checkAuthorization(user, allowed);
+    }
 
     //determine if user has matching role //
 

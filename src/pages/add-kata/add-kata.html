@@ -1,0 +1,88 @@
+<!--
+  Generated template for the AddKataPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Add kata</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list no-border>
+
+    <ion-list-header>
+      Workout
+    </ion-list-header>
+    <ion-item>
+      <ion-icon name='stats' item-start></ion-icon>
+      <ion-label floating>Level</ion-label>
+      <ion-select [(ngModel)]="kata.level">
+        <ion-option *ngFor="let level of levels" value="{{level.id}}">{{level.id}} - {{level.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-icon name='calendar' item-start></ion-icon>
+      <ion-label floating>Day</ion-label>
+      <ion-select [(ngModel)]="kata.day">
+        <ion-option value="Monday">Monday</ion-option>
+        <ion-option value="Tuesday">Tuesday</ion-option>
+        <ion-option value="Wednesday">Wednesday</ion-option>
+        <ion-option value="Thursday">Thursday</ion-option>
+        <ion-option value="Friday">Friday</ion-option>
+        <ion-option value="Saturday">Saturday</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name='body' item-start></ion-icon>
+      <ion-label floating>Target</ion-label>
+      <ion-select [(ngModel)]="kata.target">
+        <ion-option value="Legs">Legs</ion-option>
+        <ion-option value="Chest">Chest</ion-option>
+        <ion-option value="Back">Back</ion-option>
+        <ion-option value="Shoulder">Shoulder</ion-option>
+        <ion-option value="Arms">Arms</ion-option>
+      </ion-select>
+    </ion-item>
+
+  </ion-list>
+
+
+  <ion-list>
+
+    <ion-list-header>
+      Exercises
+    </ion-list-header>
+
+    <ng-container *ngFor="let w of kata.workout">
+      <ion-item>
+        <ion-icon name='pulse' item-start></ion-icon>
+        <ion-label floating>Description</ion-label>
+        <ion-input [(ngModel)]="w.description"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name='bulb' item-start></ion-icon>
+        <ion-label floating>Tip</ion-label>
+        <ion-input [(ngModel)]="w.tip"></ion-input>
+      </ion-item>
+    </ng-container>
+
+    <ion-item>
+      <button ion-button small item-end (click)="addExercise()">+</button>
+      <button ion-button small color="danger" item-end (click)="removeExercise()">-</button>
+    </ion-item>
+
+  </ion-list>
+
+  <button ion-button block (click)="save()">Save</button>
+
+</ion-content>

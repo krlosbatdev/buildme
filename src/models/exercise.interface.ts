@@ -1,4 +1,4 @@
 export interface Exercise{
   description: string;
-  tips?: string
+  tip?: string
 }

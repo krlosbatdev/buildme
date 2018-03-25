@@ -10,15 +10,15 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>katas</ion-title>
+    <ion-title>Katas</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-    <div *ngFor="let training of trainings">
-        <h3>{{training | json}}</h3>
-      </div>
+  <div *ngFor="let training of trainings">
+    <h3>{{training | json}}</h3>
+  </div>
 
 </ion-content>

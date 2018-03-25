@@ -1,18 +1,30 @@
 <ion-menu [content]="content" *ngIf="authService.user$ | async as user">
   <ion-header>
     <ion-toolbar>
-      <ion-title>Menu</ion-title>
+      <ion-item no-lines>
+        <ion-avatar item-start>
+          <img [src]="user.photoURL" alt="">
+        </ion-avatar>
+        <h2>{{user.displayName}}</h2>
+        <p>{{user.email}}</p>
+        <ion-avatar item-end *ngIf="levelIconlUrl | async; let levelIcon">
+          <img [src]="levelIcon" alt="">
+
+        </ion-avatar>
+        
+      </ion-item>
+
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
     <ion-list>
-     <ng-container *ngFor="let p of pages">
-        <button menuClose ion-item  (click)="openPage(p)" *ngIf="user.roles[p.role]">
-            {{p.title}}
-          </button>
-     </ng-container>
-      
+      <ng-container *ngFor="let p of pages">
+        <button menuClose ion-item (click)="openPage(p)" *ngIf="user.roles[p.role]">
+          {{p.title}}
+        </button>
+      </ng-container>
+
     </ion-list>
   </ion-content>
 

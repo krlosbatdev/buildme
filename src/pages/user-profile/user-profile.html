@@ -10,7 +10,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>user-profile</ion-title>
+    <ion-title>Profile</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -35,8 +35,13 @@
 <!-- User logged in -->
 <ng-template #authenticated>
   <div *ngIf="auth.user$ | async as user">
+      <ion-item no-lines>
+          <ion-avatar>
+            <img [src]="user.photoURL" alt="">
+          </ion-avatar>
+        </ion-item>
       <h3>Howdy, {{user.displayName}}</h3>
-      <img [src]="user.photoURL" alt="">
+      
       <p>UID: {{ user.uid }}</p>
       <p>Roles: {{user.roles | json}}</p>
       
