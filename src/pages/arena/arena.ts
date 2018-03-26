@@ -10,7 +10,7 @@ import "rxjs/add/operator/map";
 
 
 /**
- * Generated class for the KatasPage page.
+ * Generated class for the ArenaPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -18,10 +18,10 @@ import "rxjs/add/operator/map";
 
 @IonicPage()
 @Component({
-  selector: 'page-katas',
-  templateUrl: 'katas.html',
+  selector: 'page-arena',
+  templateUrl: 'arena.html',
 })
-export class KatasPage {
+export class ArenaPage {
   trainingsCollection: AngularFirestoreCollection<Training>;
   trainings:any[];//Observable<Training[]>;
 

@@ -2,18 +2,12 @@
   <ion-header>
     <ion-toolbar>
       <ion-item no-lines>
-        <ion-avatar item-start>
-          <img [src]="user.photoURL" alt="">
-        </ion-avatar>
-        <h2>{{user.displayName}}</h2>
-        <p>{{user.email}}</p>
-        <ion-avatar item-end *ngIf="levelIconlUrl | async; let levelIcon">
+        <ion-avatar item-start *ngIf="levelIconlUrl | async; let levelIcon">
           <img [src]="levelIcon" alt="">
-
         </ion-avatar>
-        
+        <h2>{{level.name}}</h2>
+        <p>{{level.quote}}</p>
       </ion-item>
-
     </ion-toolbar>
   </ion-header>
 

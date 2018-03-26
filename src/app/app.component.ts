@@ -1,8 +1,5 @@
 import { LEVEL_LIST, Level } from './../models/level.interface';
-import { KatasPage } from '../pages/katas/katas';
 import { AuthService } from './../core/auth.service';
-import { LoginPage } from './../pages/login/login';
-import { UserProfilePage } from './../pages/user-profile/user-profile';
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -23,6 +20,7 @@ export class MyApp {
 
   pages: Array<{title: string, component: any, role:string}>;
   levelIconlUrl;
+  level:Level;
 
   constructor(
       public platform: Platform,
@@ -35,8 +33,8 @@ export class MyApp {
       .subscribe(user => {
         this.rootPage = !user ? 'LoginPage' : 'UserProfilePage';
         if(!user) return;
-        let level:Level = _.find(this.levelList,['id', user.level]);
-        this.levelIconlUrl = this.afStorage.ref(level.icon).getDownloadURL();
+        this.level = _.find(this.levelList,['id', user.level]);
+        this.levelIconlUrl = this.afStorage.ref(this.level.icon).getDownloadURL();
         
       });
 
@@ -46,7 +44,7 @@ export class MyApp {
       //&& user.roles.user
     this.pages = [
       { title: 'Profile', component: 'UserProfilePage',role:'user'},
-      {title: 'Katas', component: 'KatasPage',role:'user'},
+      {title: 'Arena', component: 'ArenaPage',role:'user'},
       {title: 'Add Katas', component: 'AddKataPage',role:'admin'},
       
     ];

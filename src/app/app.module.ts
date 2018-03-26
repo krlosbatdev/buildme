@@ -1,7 +1,4 @@
-import { KatasPageModule } from './../pages/katas/katas.module';
 import { LoginPageModule } from './../pages/login/login.module';
-import { LoginPage } from './../pages/login/login';
-import { UserProfilePage } from '../pages/user-profile/user-profile';
 import { CoreModule } from './../core/core.module';
 import { environment } from '../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
